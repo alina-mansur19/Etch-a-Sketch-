@@ -1,11 +1,24 @@
-// Asks user for number of grids
+// Initialization
 
-const pixels = prompt("Enter number of pixels per side:");
+let pixels = 16;
+let sizeBtn = document.querySelector("#btn");
 
 
 
+// Asks user for number of grids/button
 
-// Create divs
+function askUser(){
+    pixels = prompt("Enter number of pixels per side:");
+    removePixels();
+    createPixels();
+    firingUp();
+}
+
+sizeBtn.addEventListener("click", ()=>{
+    askUser();
+})
+
+// Create divs/pixels
 
 function createPixels(){
     const container = document.querySelector("#container");
@@ -22,28 +35,45 @@ function createPixels(){
         }
        
     }
+    
 } 
 
- createPixels();
+//reset pixels
 
-// fire every pixel when mouse hovers
-
-let singleDiv = document.querySelectorAll('.divs');
-const totalPixels = document.querySelectorAll('.divs').length;
-
-for(i=0;i<totalPixels;i++){
-
-    singleDiv[i].addEventListener("mouseout", (event) => {
-        event.target.style.backgroundColor = "purple";
-    })
-
-    singleDiv[i].addEventListener("mouseover", (event) => {
-        event.target.style.backgroundColor = "lightblue";
-    })
-
-
+function removePixels(){
+    const childContainers = document.querySelectorAll('.containers');
+    const numRows = childContainers.length;
+    for(i=0;i<numRows;i++){
+        childContainers[i].remove();
+    }
 }
 
 
+// fire every pixel when mouse hovers
+
+function firingUp(){
+    
+    let singleDiv = document.querySelectorAll('.divs');
+    let totalPixels = singleDiv.length;
+    console.log(totalPixels);
+
+    for(i=0;i<totalPixels;i++){
+
+        singleDiv[i].addEventListener("mouseout", (event) => {
+            event.target.style.backgroundColor = "purple";
+        })
+
+        singleDiv[i].addEventListener("mouseover", (event) => {
+            event.target.style.backgroundColor = "lightblue";
+        })
+
+    }
+}
+
+
+
+//calling globally/executing
+createPixels();
+firingUp();
 
 
